@@ -1,58 +1,113 @@
 package com.example.cptracker.ui.theme
 
-import android.app.Activity
-import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.darkColorScheme
-import androidx.compose.material3.dynamicDarkColorScheme
-import androidx.compose.material3.dynamicLightColorScheme
-import androidx.compose.material3.lightColorScheme
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.sp
+import com.example.cptracker.R
 
-private val DarkColorScheme = darkColorScheme(
-    primary = Purple80,
-    secondary = PurpleGrey80,
-    tertiary = Pink80
+val latoFontFamily = FontFamily(
+    Font(R.font.lato_light, FontWeight.Light),
+    Font(R.font.lato_semibold, FontWeight.SemiBold),
+    Font(R.font.lato_bold, FontWeight.Bold)
+)
+
+val AppTypography = Typography(
+    displayLarge = TextStyle(
+        fontFamily = latoFontFamily,
+        fontWeight = FontWeight.SemiBold,
+        fontSize = 40.sp
+    ),
+    bodyLarge = TextStyle(
+        fontFamily = latoFontFamily,
+        fontWeight = FontWeight.Light,
+        fontSize = 20.sp
+    ),
+    headlineSmall = TextStyle(
+        fontFamily = latoFontFamily,
+        fontWeight = FontWeight.SemiBold,
+        fontSize = 20.sp
+    ),
+    labelSmall = TextStyle(
+        fontFamily = latoFontFamily,
+        fontWeight = FontWeight.Light,
+        fontSize = 14.sp
+    ),
+    labelLarge = TextStyle(
+        fontFamily = latoFontFamily,
+        fontWeight = FontWeight.SemiBold,
+        fontSize = 18.sp
+    ),
+    titleSmall = TextStyle(
+        fontFamily = latoFontFamily,
+        fontWeight = FontWeight.SemiBold,
+        fontSize = 14.sp
+    ),
+    displayMedium = TextStyle(
+        fontFamily = latoFontFamily,
+        fontWeight = FontWeight.Bold,
+        fontSize = 46.sp
+    ),
+    headlineMedium = TextStyle(
+        fontFamily = latoFontFamily,
+        fontWeight = FontWeight.SemiBold,
+        fontSize = 24.sp
+    ),
+    headlineLarge = TextStyle(
+        fontFamily = latoFontFamily,
+        fontWeight = FontWeight.SemiBold,
+        fontSize = 18.sp
+    ),
+    bodyMedium = TextStyle(
+        fontFamily = latoFontFamily,
+        fontWeight = FontWeight.Light,
+        fontSize = 18.sp
+    ),
+    bodySmall = TextStyle(
+        fontFamily = latoFontFamily,
+        fontWeight = FontWeight.Light,
+        fontSize = 12.sp
+    ),
+    titleMedium = TextStyle(
+        fontFamily = latoFontFamily,
+        fontWeight = FontWeight.SemiBold,
+        fontSize = 16.sp
+    )
 )
 
 private val LightColorScheme = lightColorScheme(
-    primary = Purple40,
-    secondary = PurpleGrey40,
-    tertiary = Pink40
+    primary = LightPrimary,
+    primaryContainer = LightPrimaryVariant,
+    background = LightBackground,
+    surface = LightSurface,
+    onPrimary = LightOnPrimary,
+    onBackground = LightOnBackground
+)
 
-    /* Other default colors to override
-    background = Color(0xFFFFFBFE),
-    surface = Color(0xFFFFFBFE),
-    onPrimary = Color.White,
-    onSecondary = Color.White,
-    onTertiary = Color.White,
-    onBackground = Color(0xFF1C1B1F),
-    onSurface = Color(0xFF1C1B1F),
-    */
+private val DarkColorScheme = darkColorScheme(
+    primary = DarkPrimary,
+    primaryContainer = DarkPrimaryVariant,
+    background = DarkBackground,
+    surface = DarkSurface,
+    onPrimary = DarkOnPrimary,
+    onBackground = DarkOnBackground
 )
 
 @Composable
 fun CPTrackerTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
-    // Dynamic color is available on Android 12+
-    dynamicColor: Boolean = true,
     content: @Composable () -> Unit
 ) {
-    val colorScheme = when {
-        dynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
-            val context = LocalContext.current
-            if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
-        }
-
-        darkTheme -> DarkColorScheme
-        else -> LightColorScheme
-    }
+    val colors = if (darkTheme) DarkColorScheme else LightColorScheme
 
     MaterialTheme(
-        colorScheme = colorScheme,
-        typography = Typography,
+        colorScheme = colors,
+        typography = AppTypography,
+        shapes = Shapes(),
         content = content
     )
 }
